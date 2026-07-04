@@ -893,3 +893,131 @@ body {
     100% { transform: scale(1); }
 }
 
+/* ================================================================
+   DARK / LIGHT MODE
+   ================================================================ */
+html { transition: background 0.3s ease; }
+html, body { background: var(--bg-deep); }
+
+/* Light theme overrides */
+[data-theme="light"] {
+    --bg-deep: #eef2f7;
+    --bg-ocean: linear-gradient(180deg, #e2e8f0 0%, #d5dce6 30%, #e8edf5 60%, #f0f4ff 100%);
+    --panel-bg: rgba(255, 255, 255, 0.85);
+    --panel-border: rgba(0, 0, 0, 0.08);
+    --text-primary: #1a2332;
+    --text-secondary: #5a6b85;
+    --accent: #7c3aed;
+}
+[data-theme="light"] .mobile-container { background: var(--bg-ocean); }
+[data-theme="light"] .game-header { background: rgba(255, 255, 255, 0.85); }
+[data-theme="light"] .logo-text { color: #1a2332; text-shadow: none; }
+[data-theme="light"] .player-info-bar { background: rgba(255, 255, 255, 0.8); }
+[data-theme="light"] .log-ticker { background: rgba(255, 255, 255, 0.7); }
+[data-theme="light"] .log-expanded { background: rgba(255, 255, 255, 0.9); }
+[data-theme="light"] .lobby-player-row { background: rgba(0, 0, 0, 0.04); }
+[data-theme="light"] .input-group input { background: rgba(255, 255, 255, 0.8); color: #1a2332; }
+[data-theme="light"] .turn-banner.other-turn { background: rgba(255, 255, 255, 0.8); color: #5a6b85; }
+[data-theme="light"] .pass-btn-deck { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+[data-theme="light"] .draw-stack { background: #e2e8f0; box-shadow: 3px 3px 0 #cbd5e1, 6px 6px 0 #94a3b8; }
+[data-theme="light"] .modal-card { background: #f8fafc; }
+[data-theme="light"] .player-me-count { background: rgba(124, 58, 237, 0.12); }
+[data-theme="light"] .victory-card { background: rgba(255, 255, 255, 0.9); }
+[data-theme="light"] .sort-btn { background: rgba(0, 0, 0, 0.04); color: #5a6b85; border-color: rgba(0, 0, 0, 0.1); }
+[data-theme="light"] .hand-card-img, 
+[data-theme="light"] .uno-card-img { background: #e2e8f0; }
+[data-theme="light"] .discard-center .uno-card-img { background: #e2e8f0; }
+[data-theme="light"] .discard-stack-card .discard-img { background: #e2e8f0; }
+[data-theme="light"] .tab-content .input-group input { background: rgba(255, 255, 255, 0.9); border-color: rgba(0, 0, 0, 0.12); color: #1a2332; }
+[data-theme="light"] .tab-content .input-group input:focus { border-color: var(--accent); }
+
+/* ================================================================
+   LOGO IMAGE
+   ================================================================ */
+.logo-img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 12px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
+}
+
+/* ================================================================
+   THEME TOGGLE BUTTON (floating top-right in mobile-container)
+   ================================================================ */
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s;
+    outline: none;
+}
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+}
+/* In light mode theme toggle gets a darker bg */
+[data-theme="light"] .theme-toggle {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+/* ================================================================
+   HOME MUSIC BUTTON (inside lobby-footer)
+   ================================================================ */
+.music-toggle-home {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-secondary);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    margin-bottom: 8px;
+    outline: none;
+}
+.music-toggle-home:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+}
+.music-toggle-home.on {
+    background: rgba(167, 139, 250, 0.25);
+    border-color: #a78bfa;
+    color: #a78bfa;
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
+    animation: musicPulse 2s infinite;
+}
+[data-theme="light"] .music-toggle-home {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .music-toggle-home:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .music-toggle-home.on {
+    background: rgba(124, 58, 237, 0.12);
+    border-color: #7c3aed;
+    color: #7c3aed;
+}
+

@@ -5,7 +5,7 @@ ob_start();
 <div class="lobby-screen">
     <div class="logo-area">
         <div class="uno-logo-glow"></div>
-        <h1 class="logo-text">UNO<span>MOBILE</span></h1>
+        <img src="uno_card/UNO_Logo.webp" alt="UNO" class="logo-img">
         <p class="tagline">Bermain UNO dengan teman dan bot cerdas</p>
     </div>
 
@@ -57,6 +57,9 @@ ob_start();
     </div>
 
     <div class="lobby-footer">
+        <button id="btn-music-home" class="music-toggle-home" onclick="toggleHomeMusic()" title="Musik Latar">
+            <i class="fas fa-music"></i>
+        </button>
         <p>PHP MVC &bull; Vanilla CSS &bull; Local JSON Database</p>
     </div>
 </div>
@@ -75,6 +78,26 @@ function switchTab(tab) {
         document.getElementById('join-tab').classList.add('active');
         setTimeout(() => document.getElementById('join_name').focus(), 100);
     }
+}
+
+function toggleHomeMusic() {
+    if (typeof MusicController !== 'undefined') {
+        const playing = MusicController.toggle();
+        const btn = document.getElementById('btn-music-home');
+        if (btn) {
+            btn.classList.toggle('on', playing);
+        }
+    }
+}
+
+// Sync home music button state with MusicController
+if (typeof MusicController !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('btn-music-home');
+        if (btn && MusicController.playing) {
+            btn.classList.add('on');
+        }
+    });
 }
 </script>
 <?php
