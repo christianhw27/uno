@@ -1,0 +1,5 @@
+# Runtime game room data
+storage/rooms/*.json
+
+# Root-level screenshots
+/screenshot_*.png

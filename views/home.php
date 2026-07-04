@@ -3,6 +3,11 @@ $title = "UNO Mobile - Main Menu";
 ob_start();
 ?>
 <div class="lobby-screen">
+    <!-- Settings Gear Button (top-right) -->
+    <button class="home-settings-btn" onclick="openHomeSettings()" title="Pengaturan">
+        <i class="fas fa-cog"></i>
+    </button>
+
     <!-- Background Card Decorations -->
     <div class="bg-decorations">
         <div class="bg-suit spade">♠</div>
@@ -68,13 +73,41 @@ ob_start();
     </div>
 
     <div class="lobby-footer">
-        <button id="btn-music-home" class="music-toggle-home" onclick="toggleHomeMusic()" title="Musik Latar">
-            <i class="fas fa-music"></i>
-        </button>
         <p>PHP MVC &bull; Vanilla CSS &bull; Local JSON Database</p>
     </div>
 </div><!-- /.lobby-content -->
 </div><!-- /.lobby-screen -->
+
+<!-- Home Settings Modal -->
+<div id="home-settings-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card settings-card">
+        <div class="settings-header">
+            <h3><i class="fas fa-cog"></i> Pengaturan</h3>
+            <button class="settings-close-btn" onclick="closeHomeSettings()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="settings-body">
+            <div class="setting-row">
+                <span><i class="fas fa-music"></i> Musik</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="home-music-toggle" checked onchange="toggleHomeMusicSetting(this.checked)">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <span><i class="fas fa-volume-up"></i> Volume Musik</span>
+                <input type="range" class="setting-slider" id="home-music-volume" min="0" max="100" value="50" oninput="setHomeMusicVolume(this.value)">
+            </div>
+            <div class="setting-row">
+                <span><i class="fas fa-volume-off"></i> Volume Efek</span>
+                <input type="range" class="setting-slider" id="home-sfx-volume" min="0" max="100" value="70" oninput="setHomeSfxVolume(this.value)">
+            </div>
+            <div class="setting-row">
+                <span><i class="fas fa-tv"></i> Intensitas CRT</span>
+                <input type="range" class="setting-slider" id="home-crt-intensity" min="0" max="100" value="50" oninput="setHomeCrtIntensity(this.value)">
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 function switchTab(tab) {
@@ -92,24 +125,40 @@ function switchTab(tab) {
     }
 }
 
-function toggleHomeMusic() {
-    if (typeof MusicController !== 'undefined') {
-        const playing = MusicController.toggle();
-        const btn = document.getElementById('btn-music-home');
-        if (btn) {
-            btn.classList.toggle('on', playing);
-        }
-    }
+/* ========== HOME SETTINGS ========== */
+const _homeSettings = {
+    musicEnabled: true,
+    musicVolume: 50,
+    sfxVolume: 70,
+    crtIntensity: 50
+};
+
+function openHomeSettings() {
+    document.getElementById('home-music-toggle').checked = _homeSettings.musicEnabled;
+    document.getElementById('home-music-volume').value = _homeSettings.musicVolume;
+    document.getElementById('home-sfx-volume').value = _homeSettings.sfxVolume;
+    document.getElementById('home-crt-intensity').value = _homeSettings.crtIntensity;
+    document.getElementById('home-settings-modal').style.display = 'flex';
+}
+function closeHomeSettings() {
+    document.getElementById('home-settings-modal').style.display = 'none';
 }
 
-// Sync home music button state with MusicController
-if (typeof MusicController !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('btn-music-home');
-        if (btn && MusicController.playing) {
-            btn.classList.add('on');
-        }
-    });
+function toggleHomeMusicSetting(on) {
+    _homeSettings.musicEnabled = on;
+    if (typeof MusicController !== 'undefined') {
+        if (on) MusicController.start();
+        else MusicController.stop();
+    }
+}
+function setHomeMusicVolume(val) {
+    _homeSettings.musicVolume = parseInt(val);
+}
+function setHomeSfxVolume(val) {
+    _homeSettings.sfxVolume = parseInt(val);
+}
+function setHomeCrtIntensity(val) {
+    _homeSettings.crtIntensity = parseInt(val);
 }
 </script>
 <?php

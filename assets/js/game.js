@@ -2,19 +2,22 @@
 const AudioController = {
     ctx: null,
     init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+    _vol() { return (Settings ? Settings.sfxVolume : 70) / 100; },
     _tone(type, freqStart, freqEnd, dur, vol) {
         this.init(); if (!this.ctx) return;
+        const v = vol * this._vol();
         let o = this.ctx.createOscillator(), g = this.ctx.createGain();
         o.connect(g); g.connect(this.ctx.destination);
         o.type = type;
         o.frequency.setValueAtTime(freqStart, this.ctx.currentTime);
         o.frequency.exponentialRampToValueAtTime(freqEnd, this.ctx.currentTime + dur);
-        g.gain.setValueAtTime(vol, this.ctx.currentTime);
+        g.gain.setValueAtTime(v, this.ctx.currentTime);
         g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
         o.start(); o.stop(this.ctx.currentTime + dur);
     },
     _noise(dur, vol) {
         this.init(); if (!this.ctx) return;
+        const v = vol * this._vol();
         const bufferSize = this.ctx.sampleRate * dur;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data = buffer.getChannelData(0);
@@ -23,7 +26,7 @@ const AudioController = {
         src.buffer = buffer;
         const g = this.ctx.createGain();
         src.connect(g); g.connect(this.ctx.destination);
-        g.gain.setValueAtTime(vol, this.ctx.currentTime);
+        g.gain.setValueAtTime(v, this.ctx.currentTime);
         g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
         src.start();
     },
@@ -91,7 +94,92 @@ async function apiCall(action, params = {}) {
 }
 
 /* ========== ACTIONS ========== */
-function exitRoom() { window.location.href = 'index.php'; }
+/* ========== SETTINGS ========== */
+const Settings = {
+    musicEnabled: true,
+    musicVolume: 50,
+    sfxVolume: 70,
+    crtIntensity: 50
+};
+
+function openSettings() {
+    document.getElementById('settings-modal').style.display = 'flex';
+    // Sync UI with current state
+    document.getElementById('setting-music-toggle').checked = Settings.musicEnabled;
+    document.getElementById('setting-music-volume').value = Settings.musicVolume;
+    document.getElementById('setting-sfx-volume').value = Settings.sfxVolume;
+    document.getElementById('setting-crt-intensity').value = Settings.crtIntensity;
+}
+function closeSettings() {
+    document.getElementById('settings-modal').style.display = 'none';
+}
+function toggleMusicSetting(on) {
+    Settings.musicEnabled = on;
+    if (on) {
+        MusicController.start();
+    } else {
+        MusicController.stop();
+    }
+}
+function setMusicVolume(val) {
+    Settings.musicVolume = parseInt(val);
+}
+function setSfxVolume(val) {
+    Settings.sfxVolume = parseInt(val);
+}
+function setCrtIntensity(val) {
+    Settings.crtIntensity = parseInt(val);
+    applyCrtIntensity();
+}
+function applyCrtIntensity() {
+    const el = document.querySelector('.game-screen');
+    if (el) {
+        el.style.setProperty('--crt-intensity', Settings.crtIntensity / 100);
+    }
+}
+
+/* ========== CONFIRM DIALOG ========== */
+let _confirmResolve = null;
+
+function showConfirm(title, message) {
+    return new Promise((resolve) => {
+        document.getElementById('confirm-title').textContent = title;
+        document.getElementById('confirm-message').textContent = message;
+        document.getElementById('confirm-modal').style.display = 'flex';
+        _confirmResolve = resolve;
+    });
+}
+
+function confirmAnswer(answer) {
+    document.getElementById('confirm-modal').style.display = 'none';
+    if (_confirmResolve) {
+        _confirmResolve(answer);
+        _confirmResolve = null;
+    }
+}
+
+function confirmLeave() {
+    closeSettings();
+    showConfirm('Keluar Room', 'Apakah kamu yakin ingin meninggalkan room ini?').then(ok => {
+        if (!ok) return;
+        if (lastState && lastState.status === 'playing') {
+            resetToLobby();
+        } else {
+            window.location.href = 'index.php';
+        }
+    });
+}
+
+function exitRoom() {
+    showConfirm('Keluar Room', 'Apakah kamu yakin ingin meninggalkan room ini?').then(ok => {
+        if (!ok) return;
+        if (lastState && lastState.status === 'playing') {
+            resetToLobby();
+        } else {
+            window.location.href = 'index.php';
+        }
+    });
+}
 async function addBot()    { await apiCall('add_bot');    forceRefresh(); }
 async function removeBot(id) { await apiCall('remove_bot', { target_id: id }); forceRefresh(); }
 let _cardCount = 7;
@@ -249,6 +337,35 @@ async function forceRefresh() {
     } catch (e) { console.error(e); }
 }
 
+/* ---- Radial opponent position helper ---- */
+function getRadialPositions(count) {
+    const positions = [];
+    if (count <= 0) return positions;
+    let startAngle, endAngle, radius;
+    // All opponents positioned in the UPPER arc (sin positive -> y < 50% = top half)
+    // 0° = right, 90° = top, 180° = left
+    let yOffset = 0;
+    if (count <= 4) {
+        startAngle = 25; endAngle = 155; radius = 46; yOffset = 2;
+    } else if (count <= 6) {
+        startAngle = 15; endAngle = 165; radius = 48; yOffset = 3;
+    } else if (count <= 8) {
+        startAngle = 5; endAngle = 175; radius = 46; yOffset = 4;
+    } else {
+        startAngle = 0; endAngle = 180; radius = 44; yOffset = 5;
+    }
+    const span = endAngle - startAngle;
+    for (let i = 0; i < count; i++) {
+        const angleDeg = count === 1 ? 90 : startAngle + (i * span / (count - 1));
+        const angleRad = angleDeg * Math.PI / 180;
+        // Standard math angles: 0=right, 90=top, 180=left, 270=bottom
+        const x = 50 + radius * Math.cos(angleRad);
+        const y = 50 - radius * Math.sin(angleRad) + yOffset;
+        positions.push({ left: `${x}%`, top: `${y}%` });
+    }
+    return positions;
+}
+
 /* ========== RENDER ========== */
 function renderGame(state) {
     if (isCountdownRunning) {
@@ -303,16 +420,16 @@ function renderGame(state) {
 
     // --- Badge ---
     const sb = document.getElementById('status-badge');
-    if (state.status === 'lobby')    { sb.innerText = 'Lobi';    sb.className = 'badge badge-lobby'; }
-    else if (state.status === 'playing') { sb.innerText = 'Bermain'; sb.className = 'badge badge-playing'; }
-    else { sb.innerText = 'Selesai'; sb.className = 'badge'; }
+    if (state.status === 'lobby')    { sb.innerText = 'Lobi';    sb.className = 'cyber-status-badge badge-lobby'; }
+    else if (state.status === 'playing') { sb.innerText = 'Bermain'; sb.className = 'cyber-status-badge badge-playing'; }
+    else { sb.innerText = 'Selesai'; sb.className = 'cyber-status-badge'; }
 
     // --- Panel toggles ---
     document.getElementById('lobby-panel').style.display   = state.status === 'lobby'    ? 'flex' : 'none';
     document.getElementById('board-panel').style.display    = state.status === 'playing'  ? 'flex' : 'none';
     document.getElementById('finished-panel').style.display = state.status === 'finished' ? 'flex' : 'none';
     document.getElementById('sort-bar').style.display       = state.status === 'playing'  ? 'flex' : 'none';
-    document.getElementById('btn-music').style.display      = state.status === 'playing'  ? 'flex' : 'none';
+
 
     // === LOBBY ===
     if (state.status === 'lobby') {
@@ -364,58 +481,50 @@ function renderGame(state) {
 
         // Turn Banner
         const tb = document.getElementById('turn-banner');
-        if (isMyTurn) { tb.innerText = '🌟 GILIRANMU! 🌟'; tb.className = 'turn-banner my-turn'; }
+        if (isMyTurn) { tb.innerText = 'GILIRANMU!'; tb.className = 'turn-banner my-turn'; }
         else { tb.innerText = `Giliran: ${active.name}`; tb.className = 'turn-banner other-turn'; }
 
         // Direction
         document.getElementById('direction-indicator').className =
             `direction-ring ${state.direction === 1 ? 'cw' : 'ccw'}`;
 
-        // --- Opponents: circular layout around center ---
+        // --- Opponents: radial avatar ring layout ---
         const opponents = state.players.filter(p => p.id !== PLAYER_ID);
-        const oppContainer = document.getElementById('opponents-container');
-        oppContainer.innerHTML = '';
+        const ring = document.getElementById('opponents-ring');
+        ring.innerHTML = '';
 
-        const cx = 50, cy = 35; // center point (%)
-        const rx = 34, ry = 26; // radius (%)
-        const N = opponents.length;
+        const positions = getRadialPositions(opponents.length);
 
         opponents.forEach((p, i) => {
-            let angle;
-            if (N === 1) {
-                angle = -Math.PI / 2; // top
-            } else if (N === 2) {
-                angle = -Math.PI / 2 + (i === 0 ? -0.6 : 0.6); // top-left, top-right
-            } else {
-                angle = (i / N) * 2 * Math.PI - Math.PI / 2; // full circle from top
-            }
-
-            const left = cx + rx * Math.cos(angle);
-            const topPct = cy + ry * Math.sin(angle);
-
             const isActive = active.id === p.id;
             const showChallenge = p.card_count === 1 && !p.called_uno;
             const init = p.is_bot ? '🤖' : (p.name ? p.name.charAt(0).toUpperCase() : '?');
+            const pos = positions[i] || { left: '50%', top: '10%' };
+            const isUno = p.card_count === 1;
 
-            // Build mini card backs
+            // Anonymous mini card backs fan (do not reveal actual colors)
+            const miniCount = Math.min(p.card_count, 6);
             let miniCards = '';
-            for (let c = 0; c < Math.min(p.card_count, 15); c++) {
+            for (let c = 0; c < miniCount; c++) {
                 miniCards += `<div class="opp-minicard"></div>`;
             }
 
-            oppContainer.innerHTML += `
-                <div class="opp-widget ${isActive ? 'active' : ''}" style="position:absolute;left:${left}%;top:${topPct}%;transform:translate(-50%,-50%);">
-                    <div class="opp-cards-fan">${miniCards}</div>
-                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-                        <div class="opp-avatar">
-                            ${init}
-                            <div class="opp-badge-count">${p.card_count}</div>
-                            ${p.called_uno ? '<div class="opp-uno-badge">UNO</div>' : ''}
-                        </div>
-                        <div class="opp-nametag">${p.name}</div>
-                        ${showChallenge ? `<button class="opp-challenge-btn" onclick="challenge('${p.id}')">TANTANG!</button>` : ''}
-                    </div>
-                </div>`;
+            const widget = document.createElement('div');
+            widget.className = 'player-avatar';
+            widget.style.left = pos.left;
+            widget.style.top = pos.top;
+            widget.innerHTML = `
+                ${miniCount > 0 ? `<div class="opp-cards-fan">${miniCards}</div>` : ''}
+                <div class="avatar-img-container ${isActive ? 'avatar-active' : ''}">
+                    <span class="opp-avatar-icon">${init}</span>
+                    ${isUno ? '<div class="opp-badge-alert">!</div>' : ''}
+                    ${p.called_uno ? '<div class="opp-uno-badge">UNO</div>' : ''}
+                    <div class="card-count-badge">${p.card_count}</div>
+                </div>
+                <span class="opp-nametag ${isUno ? 'uno-alert' : ''}">${isUno ? 'UNO!' : p.name}</span>
+                ${showChallenge ? `<button class="opp-challenge-btn" onclick="challenge('${p.id}')">TANTANG!</button>` : ''}
+            `;
+            ring.appendChild(widget);
         });
 
         // --- Discard Card Stack (combo fan or single card) ---
@@ -433,7 +542,7 @@ function renderGame(state) {
         if (cardsToShow.length > 0) {
             const N = cardsToShow.length;
             const isCombo = N > 1;
-            const totalSpread = isCombo ? (N - 1) * 14 : 0;
+            const totalSpread = isCombo ? (N - 1) * 12 : 0;
             const baseX = totalSpread / 2; // center the fan
 
             for (let i = 0; i < N; i++) {
@@ -443,7 +552,7 @@ function renderGame(state) {
                 wrap.className = 'discard-stack-card';
 
                 if (isCombo) {
-                    const offX = baseX - i * 14;
+                    const offX = baseX - i * 12;
                     const angle = -i * 3;
                     wrap.style.transform = `translateX(${offX}px) rotate(${angle}deg)`;
                     wrap.style.zIndex = N - i;
@@ -460,8 +569,11 @@ function renderGame(state) {
                 if (i === 0) {
                     img.style.borderWidth = '3px';
                     img.style.boxShadow = '0 8px 25px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.15)';
-                    if (card.color === 'wild' && state.selected_color)
-                        img.classList.add(`wild-border-${state.selected_color}`);
+                    const glowColor = card.color === 'wild' ? (state.selected_color || 'wild') : card.color;
+                    img.classList.add(`card-glow-${glowColor}`);
+                    if (card.color === 'wild' && state.selected_color) {
+                        img.classList.add('wild-selected');
+                    }
                 } else {
                     img.style.borderWidth = '2px';
                     img.style.borderColor = 'rgba(255,255,255,0.25)';
@@ -471,31 +583,31 @@ function renderGame(state) {
                 wrap.appendChild(img);
                 dc.appendChild(wrap);
             }
+
+            // Action indicator ring below the front card
+            const topCard = cardsToShow[cardsToShow.length - 1];
+            const colorMap = { red: '#FF4136', blue: '#0074D9', green: '#2ECC40', yellow: '#FFDC00', wild: '#ce5dff' };
+            const activeColor = topCard.color === 'wild'
+                ? (state.selected_color ? colorMap[state.selected_color] : '#ce5dff')
+                : (colorMap[topCard.color] || '#FF4136');
+            const indicator = document.createElement('div');
+            indicator.className = 'action-indicator-ring';
+            indicator.style.cssText = `background:${activeColor};box-shadow:0 0 20px ${activeColor},0 0 0 4px rgba(0,0,0,0.3)`;
+            dc.appendChild(indicator);
         }
 
-        // --- Deck count ---
+        // --- Deck count & draw pile ---
         document.getElementById('deck-count').innerText = state.deck_count;
 
-        // Draw pile label
-        const drawFloat = document.querySelector('.draw-pile-center');
-        const drawLbl = document.getElementById('draw-label');
+        const drawWrap = document.querySelector('.draw-pile-wrap');
+        const drawBtn = document.querySelector('.draw-btn');
         if (state.accumulated_draw_penalty > 0) {
-            drawLbl.innerHTML = `AMBIL <span style="color:#ef4444;font-weight:800;">+${state.accumulated_draw_penalty}</span>`;
-            drawFloat.classList.add('pulse-penalty');
+            drawBtn.innerHTML = `DRAW <span style="color:#fff;font-weight:900;">+${state.accumulated_draw_penalty}</span>`;
+            drawWrap.classList.add('pulse-penalty');
         } else {
-            drawLbl.innerText = 'AMBIL';
-            drawFloat.classList.remove('pulse-penalty');
+            drawBtn.innerText = 'DRAW';
+            drawWrap.classList.remove('pulse-penalty');
         }
-
-        // --- Color indicator ---
-        const ci = document.getElementById('wild-color-indicator');
-        if (state.discard_card?.color === 'wild' && state.selected_color) {
-            ci.style.display = 'block';
-            const dot = document.getElementById('wild-color-dot');
-            const colorMap = { red: '#ef4444', blue: '#3b82f6', green: '#10b981', yellow: '#f59e0b' };
-            dot.style.background = colorMap[state.selected_color] || '#fff';
-            dot.style.boxShadow = `0 0 12px ${colorMap[state.selected_color] || '#fff'}`;
-        } else { ci.style.display = 'none'; }
 
         // --- Pass button ---
         document.getElementById('btn-pass').style.display = (isMyTurn && state.has_drawn) ? 'flex' : 'none';
@@ -520,7 +632,7 @@ function renderGame(state) {
             if (N > 1) {
                 const containerWidth = Math.max(hc.clientWidth || 420, 240) - 16;
                 const maxHandWidth = Math.min(containerWidth, 420);
-                const cardWidth = 78;
+                const cardWidth = 68;
                 const minVisible = 55; // visible width per card before scrolling kicks in
                 const neededWidth = N * cardWidth;
                 if (neededWidth > maxHandWidth) {
@@ -641,6 +753,7 @@ function renderGame(state) {
         document.getElementById('btn-reset-lobby').style.display = isCreator ? 'block' : 'none';
         document.getElementById('finished-lobby-status').style.display = isCreator ? 'none' : 'block';
     }
+    applyCrtIntensity();
 }
 
 function triggerEffectAnimation(card, selectedColor, penaltyDelta) {
