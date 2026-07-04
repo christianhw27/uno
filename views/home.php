@@ -134,6 +134,10 @@ const _homeSettings = {
 };
 
 function openHomeSettings() {
+    // Sync from MusicController actual state
+    if (typeof MusicController !== 'undefined') {
+        _homeSettings.musicEnabled = MusicController.playing;
+    }
     document.getElementById('home-music-toggle').checked = _homeSettings.musicEnabled;
     document.getElementById('home-music-volume').value = _homeSettings.musicVolume;
     document.getElementById('home-sfx-volume').value = _homeSettings.sfxVolume;

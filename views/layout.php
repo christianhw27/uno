@@ -38,9 +38,6 @@
         // Handle autoplay policy — start on first user interaction if needed
         const resumeMusic = () => {
             try {
-                if (MusicController.ctx && MusicController.ctx.state === 'suspended') {
-                    MusicController.ctx.resume();
-                }
                 if (!MusicController.playing) {
                     MusicController.start();
                 }

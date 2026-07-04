@@ -105,6 +105,9 @@ const Settings = {
 function openSettings() {
     document.getElementById('settings-modal').style.display = 'flex';
     // Sync UI with current state
+    if (typeof MusicController !== 'undefined') {
+        Settings.musicEnabled = MusicController.playing;
+    }
     document.getElementById('setting-music-toggle').checked = Settings.musicEnabled;
     document.getElementById('setting-music-volume').value = Settings.musicVolume;
     document.getElementById('setting-sfx-volume').value = Settings.sfxVolume;
