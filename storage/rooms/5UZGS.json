@@ -1,0 +1,52 @@
+{
+    "room_id": "5UZGS",
+    "creator_id": "p_6a4649601bf2d",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a4649601bf2d",
+                "name": "Player1Playe",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a464a1469945",
+                "name": "\ud83e\udd16 Bot Alpha",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a464a18860aa",
+                "name": "\ud83e\udd16 Bot Beta",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a464a1dca512",
+                "name": "\ud83e\udd16 Bot Gamma",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Player1Playe created room 5UZGS.",
+            "\ud83e\udd16 Bot Alpha was added to the lobby.",
+            "\ud83e\udd16 Bot Beta was added to the lobby.",
+            "\ud83e\udd16 Bot Gamma was added to the lobby."
+        ],
+        "last_action_time": 1782991373.50094,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "room_id": "WF44G",
+    "creator_id": "p_6a4779093da67",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a4779093da67",
+                "name": "queen",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "p_6a4779127c617",
+                "name": "gwej jamet",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "p_6a47794629420",
+                "name": "nathaniarean",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Game room returned to lobby."
+        ],
+        "last_action_time": 1783071231.771874,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0,
+        "initial_card_count": 6,
+        "last_play_cards": []
+    }
+}

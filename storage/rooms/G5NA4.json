@@ -1,0 +1,36 @@
+{
+    "room_id": "G5NA4",
+    "creator_id": "p_6a465c628eb44",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a465c628eb44",
+                "name": "yaya",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a465c693beea",
+                "name": "\ud83e\udd16 Bot Alpha",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "yaya created room G5NA4.",
+            "\ud83e\udd16 Bot Alpha was added to the lobby."
+        ],
+        "last_action_time": 1782996066.584773,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0
+    }
+}

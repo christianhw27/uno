@@ -1,0 +1,37 @@
+{
+    "room_id": "CH7JR",
+    "creator_id": "p_6a468c71048cb",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a468c71048cb",
+                "name": "MbesetRai",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "p_6a468f0836843",
+                "name": "cukimay",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Game room returned to lobby."
+        ],
+        "last_action_time": 1783010710.089033,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0,
+        "initial_card_count": 3,
+        "last_play_cards": []
+    }
+}

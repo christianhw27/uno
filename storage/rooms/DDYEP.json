@@ -1,0 +1,818 @@
+{
+    "room_id": "DDYEP",
+    "creator_id": "p_6a4638f164679",
+    "game": {
+        "deck": [
+            {
+                "id": "card_22",
+                "color": "red",
+                "type": "reverse",
+                "value": null,
+                "image": "RED_Reverse.jpg"
+            },
+            {
+                "id": "card_66",
+                "color": "green",
+                "type": "number",
+                "value": 8,
+                "image": "Green_8.jpg"
+            },
+            {
+                "id": "card_89",
+                "color": "yellow",
+                "type": "number",
+                "value": 7,
+                "image": "Yellow_7.jpg"
+            },
+            {
+                "id": "card_26",
+                "color": "blue",
+                "type": "number",
+                "value": 0,
+                "image": "Blue_0.jpg"
+            },
+            {
+                "id": "card_10",
+                "color": "red",
+                "type": "number",
+                "value": 5,
+                "image": "Red_5.jpg"
+            },
+            {
+                "id": "card_78",
+                "color": "yellow",
+                "type": "number",
+                "value": 1,
+                "image": "Yellow_1.jpg"
+            },
+            {
+                "id": "card_35",
+                "color": "blue",
+                "type": "number",
+                "value": 5,
+                "image": "Blue_5.jpg"
+            },
+            {
+                "id": "card_83",
+                "color": "yellow",
+                "type": "number",
+                "value": 4,
+                "image": "Yellow_4.jpg"
+            },
+            {
+                "id": "card_1",
+                "color": "red",
+                "type": "number",
+                "value": 0,
+                "image": "Red_0.jpg"
+            },
+            {
+                "id": "card_74",
+                "color": "green",
+                "type": "draw_2",
+                "value": null,
+                "image": "Green_Draw_2.jpg"
+            },
+            {
+                "id": "card_12",
+                "color": "red",
+                "type": "number",
+                "value": 6,
+                "image": "Red_6.jpg"
+            },
+            {
+                "id": "card_51",
+                "color": "green",
+                "type": "number",
+                "value": 0,
+                "image": "Green_0.jpg"
+            },
+            {
+                "id": "card_57",
+                "color": "green",
+                "type": "number",
+                "value": 3,
+                "image": "Green_3.jpg"
+            },
+            {
+                "id": "card_58",
+                "color": "green",
+                "type": "number",
+                "value": 4,
+                "image": "Green_4.jpg"
+            },
+            {
+                "id": "card_101",
+                "color": "wild",
+                "type": "wild",
+                "value": null,
+                "image": "Wild(1).jpg"
+            },
+            {
+                "id": "card_79",
+                "color": "yellow",
+                "type": "number",
+                "value": 2,
+                "image": "Yellow_2.jpg"
+            },
+            {
+                "id": "card_62",
+                "color": "green",
+                "type": "number",
+                "value": 6,
+                "image": "Green_6.jpg"
+            },
+            {
+                "id": "card_30",
+                "color": "blue",
+                "type": "number",
+                "value": 2,
+                "image": "Blue_2.jpg"
+            },
+            {
+                "id": "card_64",
+                "color": "green",
+                "type": "number",
+                "value": 7,
+                "image": "Green_7.jpg"
+            },
+            {
+                "id": "card_38",
+                "color": "blue",
+                "type": "number",
+                "value": 6,
+                "image": "Blue_6.jpg"
+            },
+            {
+                "id": "card_15",
+                "color": "red",
+                "type": "number",
+                "value": 7,
+                "image": "Red_7.jpg"
+            },
+            {
+                "id": "card_92",
+                "color": "yellow",
+                "type": "number",
+                "value": 8,
+                "image": "Yellow_8.jpg"
+            },
+            {
+                "id": "card_42",
+                "color": "blue",
+                "type": "number",
+                "value": 8,
+                "image": "Blue_8.jpg"
+            },
+            {
+                "id": "card_90",
+                "color": "yellow",
+                "type": "number",
+                "value": 7,
+                "image": "Yellow_7.jpg"
+            },
+            {
+                "id": "card_85",
+                "color": "yellow",
+                "type": "number",
+                "value": 5,
+                "image": "Yellow_5.jpg"
+            },
+            {
+                "id": "card_14",
+                "color": "red",
+                "type": "number",
+                "value": 7,
+                "image": "Red_7.jpg"
+            },
+            {
+                "id": "card_19",
+                "color": "red",
+                "type": "number",
+                "value": 9,
+                "image": "Red_9.jpg"
+            },
+            {
+                "id": "card_47",
+                "color": "blue",
+                "type": "reverse",
+                "value": null,
+                "image": "Blue_Reverse.jpg"
+            },
+            {
+                "id": "card_27",
+                "color": "blue",
+                "type": "number",
+                "value": 1,
+                "image": "Blue_1.jpg"
+            },
+            {
+                "id": "card_16",
+                "color": "red",
+                "type": "number",
+                "value": 8,
+                "image": "Red_8.jpg"
+            },
+            {
+                "id": "card_73",
+                "color": "green",
+                "type": "reverse",
+                "value": null,
+                "image": "Green_Reverse.jpg"
+            },
+            {
+                "id": "card_69",
+                "color": "green",
+                "type": "number",
+                "value": 9,
+                "image": "Green_9.jpg"
+            },
+            {
+                "id": "card_24",
+                "color": "red",
+                "type": "draw_2",
+                "value": null,
+                "image": "Red_Draw_2.jpg"
+            },
+            {
+                "id": "card_7",
+                "color": "red",
+                "type": "number",
+                "value": 3,
+                "image": "Red_3.jpg"
+            },
+            {
+                "id": "card_77",
+                "color": "yellow",
+                "type": "number",
+                "value": 1,
+                "image": "Yellow_1.jpg"
+            },
+            {
+                "id": "card_25",
+                "color": "red",
+                "type": "draw_2",
+                "value": null,
+                "image": "Red_Draw_2.jpg"
+            },
+            {
+                "id": "card_44",
+                "color": "blue",
+                "type": "number",
+                "value": 9,
+                "image": "Blue_9.jpg"
+            },
+            {
+                "id": "card_45",
+                "color": "blue",
+                "type": "skip",
+                "value": null,
+                "image": "Blue_Skip.jpg"
+            },
+            {
+                "id": "card_49",
+                "color": "blue",
+                "type": "draw_2",
+                "value": null,
+                "image": "Blue_Draw_2.jpg"
+            },
+            {
+                "id": "card_104",
+                "color": "wild",
+                "type": "wild",
+                "value": null,
+                "image": "Wild(4).jpg"
+            },
+            {
+                "id": "card_32",
+                "color": "blue",
+                "type": "number",
+                "value": 3,
+                "image": "Blue_3.jpg"
+            },
+            {
+                "id": "card_9",
+                "color": "red",
+                "type": "number",
+                "value": 4,
+                "image": "Red_4.jpg"
+            },
+            {
+                "id": "card_95",
+                "color": "yellow",
+                "type": "skip",
+                "value": null,
+                "image": "Yellow_Skip.jpg"
+            },
+            {
+                "id": "card_39",
+                "color": "blue",
+                "type": "number",
+                "value": 7,
+                "image": "Blue_7.jpg"
+            },
+            {
+                "id": "card_102",
+                "color": "wild",
+                "type": "wild",
+                "value": null,
+                "image": "Wild(2).jpg"
+            },
+            {
+                "id": "card_108",
+                "color": "wild",
+                "type": "wild_4",
+                "value": null,
+                "image": "Wild_Draw_4(4).jpg"
+            },
+            {
+                "id": "card_43",
+                "color": "blue",
+                "type": "number",
+                "value": 9,
+                "image": "Blue_9.jpg"
+            },
+            {
+                "id": "card_107",
+                "color": "wild",
+                "type": "wild_4",
+                "value": null,
+                "image": "Wild_Draw_4(3).jpg"
+            },
+            {
+                "id": "card_106",
+                "color": "wild",
+                "type": "wild_4",
+                "value": null,
+                "image": "Wild_Draw_4(2).jpg"
+            },
+            {
+                "id": "card_23",
+                "color": "red",
+                "type": "reverse",
+                "value": null,
+                "image": "RED_Reverse.jpg"
+            },
+            {
+                "id": "card_36",
+                "color": "blue",
+                "type": "number",
+                "value": 5,
+                "image": "Blue_5.jpg"
+            },
+            {
+                "id": "card_100",
+                "color": "yellow",
+                "type": "draw_2",
+                "value": null,
+                "image": "Yellow_Draw_2.jpg"
+            },
+            {
+                "id": "card_2",
+                "color": "red",
+                "type": "number",
+                "value": 1,
+                "image": "Red_1.jpg"
+            },
+            {
+                "id": "card_29",
+                "color": "blue",
+                "type": "number",
+                "value": 2,
+                "image": "Blue_2.jpg"
+            },
+            {
+                "id": "card_65",
+                "color": "green",
+                "type": "number",
+                "value": 7,
+                "image": "Green_7.jpg"
+            },
+            {
+                "id": "card_91",
+                "color": "yellow",
+                "type": "number",
+                "value": 8,
+                "image": "Yellow_8.jpg"
+            },
+            {
+                "id": "card_41",
+                "color": "blue",
+                "type": "number",
+                "value": 8,
+                "image": "Blue_8.jpg"
+            },
+            {
+                "id": "card_103",
+                "color": "wild",
+                "type": "wild",
+                "value": null,
+                "image": "Wild(3).jpg"
+            },
+            {
+                "id": "card_81",
+                "color": "yellow",
+                "type": "number",
+                "value": 3,
+                "image": "Yellow_3.jpg"
+            },
+            {
+                "id": "card_31",
+                "color": "blue",
+                "type": "number",
+                "value": 3,
+                "image": "Blue_3.jpg"
+            },
+            {
+                "id": "card_33",
+                "color": "blue",
+                "type": "number",
+                "value": 4,
+                "image": "Blue_4.jpg"
+            },
+            {
+                "id": "card_28",
+                "color": "blue",
+                "type": "number",
+                "value": 1,
+                "image": "Blue_1.jpg"
+            },
+            {
+                "id": "card_99",
+                "color": "yellow",
+                "type": "draw_2",
+                "value": null,
+                "image": "Yellow_Draw_2.jpg"
+            }
+        ],
+        "discard_pile": [
+            {
+                "id": "card_88",
+                "color": "yellow",
+                "type": "number",
+                "value": 6,
+                "image": "Yellow_6.jpg"
+            },
+            {
+                "id": "card_87",
+                "color": "yellow",
+                "type": "number",
+                "value": 6,
+                "image": "Yellow_6.jpg"
+            },
+            {
+                "id": "card_96",
+                "color": "yellow",
+                "type": "skip",
+                "value": null,
+                "image": "Yellow_Skip.jpg"
+            },
+            {
+                "id": "card_84",
+                "color": "yellow",
+                "type": "number",
+                "value": 4,
+                "image": "Yellow_4.jpg"
+            },
+            {
+                "id": "card_98",
+                "color": "yellow",
+                "type": "reverse",
+                "value": null,
+                "image": "Yellow_Reverse.jpg"
+            },
+            {
+                "id": "card_93",
+                "color": "yellow",
+                "type": "number",
+                "value": 9,
+                "image": "Yellow_9.jpg"
+            },
+            {
+                "id": "card_82",
+                "color": "yellow",
+                "type": "number",
+                "value": 3,
+                "image": "Yellow_3.jpg"
+            },
+            {
+                "id": "card_6",
+                "color": "red",
+                "type": "number",
+                "value": 3,
+                "image": "Red_3.jpg"
+            },
+            {
+                "id": "card_11",
+                "color": "red",
+                "type": "number",
+                "value": 5,
+                "image": "Red_5.jpg"
+            },
+            {
+                "id": "card_13",
+                "color": "red",
+                "type": "number",
+                "value": 6,
+                "image": "Red_6.jpg"
+            },
+            {
+                "id": "card_17",
+                "color": "red",
+                "type": "number",
+                "value": 8,
+                "image": "Red_8.jpg"
+            },
+            {
+                "id": "card_105",
+                "color": "wild",
+                "type": "wild_4",
+                "value": null,
+                "image": "Wild_Draw_4(1).jpg"
+            },
+            {
+                "id": "card_50",
+                "color": "blue",
+                "type": "draw_2",
+                "value": null,
+                "image": "Blue_Draw_2.jpg"
+            },
+            {
+                "id": "card_40",
+                "color": "blue",
+                "type": "number",
+                "value": 7,
+                "image": "Blue_7.jpg"
+            },
+            {
+                "id": "card_48",
+                "color": "blue",
+                "type": "reverse",
+                "value": null,
+                "image": "Blue_Reverse.jpg"
+            },
+            {
+                "id": "card_97",
+                "color": "yellow",
+                "type": "reverse",
+                "value": null,
+                "image": "Yellow_Reverse.jpg"
+            },
+            {
+                "id": "card_86",
+                "color": "yellow",
+                "type": "number",
+                "value": 5,
+                "image": "Yellow_5.jpg"
+            },
+            {
+                "id": "card_61",
+                "color": "green",
+                "type": "number",
+                "value": 5,
+                "image": "Green_5.jpg"
+            },
+            {
+                "id": "card_71",
+                "color": "green",
+                "type": "skip",
+                "value": null,
+                "image": "Green_Skip.jpg"
+            },
+            {
+                "id": "card_53",
+                "color": "green",
+                "type": "number",
+                "value": 1,
+                "image": "Green_1.jpg"
+            },
+            {
+                "id": "card_59",
+                "color": "green",
+                "type": "number",
+                "value": 4,
+                "image": "Green_4.jpg"
+            },
+            {
+                "id": "card_34",
+                "color": "blue",
+                "type": "number",
+                "value": 4,
+                "image": "Blue_4.jpg"
+            },
+            {
+                "id": "card_46",
+                "color": "blue",
+                "type": "skip",
+                "value": null,
+                "image": "Blue_Skip.jpg"
+            },
+            {
+                "id": "card_37",
+                "color": "blue",
+                "type": "number",
+                "value": 6,
+                "image": "Blue_6.jpg"
+            },
+            {
+                "id": "card_63",
+                "color": "green",
+                "type": "number",
+                "value": 6,
+                "image": "Green_6.jpg"
+            },
+            {
+                "id": "card_67",
+                "color": "green",
+                "type": "number",
+                "value": 8,
+                "image": "Green_8.jpg"
+            },
+            {
+                "id": "card_75",
+                "color": "green",
+                "type": "draw_2",
+                "value": null,
+                "image": "Green_Draw_2.jpg"
+            },
+            {
+                "id": "card_60",
+                "color": "green",
+                "type": "number",
+                "value": 5,
+                "image": "Green_5.jpg"
+            },
+            {
+                "id": "card_72",
+                "color": "green",
+                "type": "reverse",
+                "value": null,
+                "image": "Green_Reverse.jpg"
+            },
+            {
+                "id": "card_68",
+                "color": "green",
+                "type": "number",
+                "value": 9,
+                "image": "Green_9.jpg"
+            },
+            {
+                "id": "card_94",
+                "color": "yellow",
+                "type": "number",
+                "value": 9,
+                "image": "Yellow_9.jpg"
+            },
+            {
+                "id": "card_76",
+                "color": "yellow",
+                "type": "number",
+                "value": 0,
+                "image": "Yellow_0.jpg"
+            },
+            {
+                "id": "card_80",
+                "color": "yellow",
+                "type": "number",
+                "value": 2,
+                "image": "Yellow_2.jpg"
+            },
+            {
+                "id": "card_55",
+                "color": "green",
+                "type": "number",
+                "value": 2,
+                "image": "Green_2.jpg"
+            },
+            {
+                "id": "card_56",
+                "color": "green",
+                "type": "number",
+                "value": 3,
+                "image": "Green_3.jpg"
+            },
+            {
+                "id": "card_70",
+                "color": "green",
+                "type": "skip",
+                "value": null,
+                "image": "Green_Skip.jpg"
+            },
+            {
+                "id": "card_52",
+                "color": "green",
+                "type": "number",
+                "value": 1,
+                "image": "Green_1.jpg"
+            },
+            {
+                "id": "card_3",
+                "color": "red",
+                "type": "number",
+                "value": 1,
+                "image": "Red_1.jpg"
+            },
+            {
+                "id": "card_21",
+                "color": "red",
+                "type": "skip",
+                "value": null,
+                "image": "Red_Skip.jpg"
+            },
+            {
+                "id": "card_20",
+                "color": "red",
+                "type": "skip",
+                "value": null,
+                "image": "Red_Skip.jpg"
+            },
+            {
+                "id": "card_5",
+                "color": "red",
+                "type": "number",
+                "value": 2,
+                "image": "Red_2.jpg"
+            },
+            {
+                "id": "card_18",
+                "color": "red",
+                "type": "number",
+                "value": 9,
+                "image": "Red_9.jpg"
+            },
+            {
+                "id": "card_4",
+                "color": "red",
+                "type": "number",
+                "value": 2,
+                "image": "Red_2.jpg"
+            },
+            {
+                "id": "card_8",
+                "color": "red",
+                "type": "number",
+                "value": 4,
+                "image": "Red_4.jpg"
+            }
+        ],
+        "players": [
+            {
+                "id": "p_6a4638f164679",
+                "name": "aaa",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": true
+            },
+            {
+                "id": "bot_6a46460c8b233",
+                "name": "\ud83e\udd16 Bot Alpha",
+                "is_bot": true,
+                "cards": [
+                    {
+                        "id": "card_54",
+                        "color": "green",
+                        "type": "number",
+                        "value": 2,
+                        "image": "Green_2.jpg"
+                    }
+                ],
+                "called_uno": true
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "finished",
+        "winner_id": "p_6a4638f164679",
+        "logs": [
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83e\udd16 Bot Alpha drew a card.",
+            "\ud83e\udd16 Bot Alpha played Yellow 2",
+            "aaa played Green 2",
+            "\ud83e\udd16 Bot Alpha played Green 3",
+            "aaa played Green Skip",
+            "aaa played COMBO: Green 1 + Red 1",
+            "\ud83e\udd16 Bot Alpha played Red Skip",
+            "\ud83e\udd16 Bot Alpha played Red Skip",
+            "\ud83e\udd16 Bot Alpha played Red 2",
+            "\ud83d\udce3 aaa declared UNO!",
+            "aaa played Red 9",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 aaa declared UNO!",
+            "\ud83d\udce3 \ud83e\udd16 Bot Alpha declared UNO!",
+            "\ud83e\udd16 Bot Alpha played Red 2",
+            "aaa played Red 4",
+            "\ud83c\udfc6 aaa wins the game!"
+        ],
+        "last_action_time": 1782991952.190474,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0
+    }
+}

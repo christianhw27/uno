@@ -1,0 +1,30 @@
+{
+    "room_id": "SGUFW",
+    "creator_id": "p_6a468bb3837dc",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a468bb3837dc",
+                "name": "bemjod",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "bemjod created room SGUFW."
+        ],
+        "last_action_time": 1783008215.107858,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0,
+        "initial_card_count": 7,
+        "last_play_cards": []
+    }
+}

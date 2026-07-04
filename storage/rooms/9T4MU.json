@@ -1,0 +1,35 @@
+{
+    "room_id": "9T4MU",
+    "creator_id": "p_6a4638f164679",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a4638f164679",
+                "name": "aaa",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a465660e3ac1",
+                "name": "\ud83e\udd16 Bot Alpha",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Game room returned to lobby."
+        ],
+        "last_action_time": 1782995904.555301,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0
+    }
+}

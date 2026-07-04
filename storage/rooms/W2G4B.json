@@ -1,0 +1,35 @@
+{
+    "room_id": "W2G4B",
+    "creator_id": "p_6a465c5aa98db",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a465c5aa98db",
+                "name": "Nini",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "p_6a465c7b65c48",
+                "name": "yaya",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Game room returned to lobby."
+        ],
+        "last_action_time": 1782997781.273152,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0
+    }
+}

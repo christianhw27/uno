@@ -1,0 +1,52 @@
+{
+    "room_id": "TSBXX",
+    "creator_id": "p_6a4649601bf2d",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a4649601bf2d",
+                "name": "Player1",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a46496c3511d",
+                "name": "\ud83e\udd16 Bot Alpha",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a4649717664a",
+                "name": "\ud83e\udd16 Bot Beta",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "bot_6a464974bca8c",
+                "name": "\ud83e\udd16 Bot Gamma",
+                "is_bot": true,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Player1 created room TSBXX.",
+            "\ud83e\udd16 Bot Alpha was added to the lobby.",
+            "\ud83e\udd16 Bot Beta was added to the lobby.",
+            "\ud83e\udd16 Bot Gamma was added to the lobby."
+        ],
+        "last_action_time": 1782991200.114964,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0
+    }
+}

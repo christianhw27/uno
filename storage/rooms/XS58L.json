@@ -1,0 +1,36 @@
+{
+    "room_id": "XS58L",
+    "creator_id": "p_6a465c7b65c48",
+    "game": {
+        "deck": [],
+        "discard_pile": [],
+        "players": [
+            {
+                "id": "p_6a465c7b65c48",
+                "name": "lol",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            },
+            {
+                "id": "p_6a46709b9c172",
+                "name": "nathanianu",
+                "is_bot": false,
+                "cards": [],
+                "called_uno": false
+            }
+        ],
+        "current_turn": 0,
+        "direction": 1,
+        "selected_color": null,
+        "status": "lobby",
+        "winner_id": null,
+        "logs": [
+            "Game room returned to lobby."
+        ],
+        "last_action_time": 1783003698.344729,
+        "has_drawn_this_turn": false,
+        "accumulated_draw_penalty": 0,
+        "last_play_cards": []
+    }
+}
