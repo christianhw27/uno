@@ -20,6 +20,11 @@ const MusicController = {
         first.parentNode.insertBefore(tag, first);
 
         window.onYouTubeIframeAPIReady = () => this._createPlayer();
+
+        // In case API already loaded before our callback was set
+        if (typeof YT !== 'undefined' && YT.loaded) {
+            this._createPlayer();
+        }
     },
 
     /* Create hidden YouTube player */
