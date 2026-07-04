@@ -373,6 +373,12 @@ function renderGame(state) {
 
         // --- Opponents: circular layout around center ---
         const opponents = state.players.filter(p => p.id !== PLAYER_ID);
+        // Sort opponents by turn order (their position in players array)
+        opponents.sort((a, b) => {
+            const aIdx = state.players.findIndex(p => p.id === a.id);
+            const bIdx = state.players.findIndex(p => p.id === b.id);
+            return aIdx - bIdx;
+        });
         const oppContainer = document.getElementById('opponents-container');
         oppContainer.innerHTML = '';
 

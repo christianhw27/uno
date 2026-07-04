@@ -229,20 +229,15 @@ body {
 }
 
 /* ---- CENTER BOARD ---- */
-.board-center {
-    position: absolute;
-    top: 38%; left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 5;
-}
-
-/* Direction ring */
+/* Direction ring (centered, transform reserved for spin animation) */
 .direction-ring {
-    position: absolute; width: 140px; height: 140px;
+    position: absolute;
+    width: 140px; height: 140px;
     border-radius: 50%;
     border: 1.5px dashed rgba(255,255,255,0.04);
     pointer-events: none;
+    top: 50%; left: 50%;
+    margin: -70px 0 0 -70px;
 }
 .direction-ring.cw { animation: spinCW 25s linear infinite; border-top-color: rgba(56,189,248,0.12); border-right-color: rgba(56,189,248,0.08); }
 .direction-ring.ccw { animation: spinCCW 25s linear infinite; border-top-color: rgba(236,72,153,0.12); border-left-color: rgba(236,72,153,0.08); }
@@ -255,12 +250,15 @@ body {
 @keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes spinCCW { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
-/* Discard card — compact deck stack */
+/* Discard card — positioned above draw pile */
 .discard-center {
-    position: relative;
+    position: absolute;
     z-index: 6;
     width: 150px;
     height: 160px;
+    left: 50%;
+    top: 36%;
+    transform: translate(-140%, -50%);
 }
 .discard-center .uno-card-img {
     width: 100px; height: 150px;
@@ -292,8 +290,11 @@ body {
 
 /* Color dot */
 .color-dot-wrap {
-    position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+    position: absolute;
     z-index: 7;
+    left: 50%;
+    top: 36%;
+    transform: translate(-140%, 85px);
 }
 .color-dot {
     width: 22px; height: 22px; border-radius: 50%;

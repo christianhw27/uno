@@ -47,20 +47,17 @@ ob_start();
             <!-- Opponents Container (circular layout) -->
             <div id="opponents-container" class="opponents-container"></div>
 
-            <!-- Center Board Area -->
-            <div class="board-center">
-                <!-- Direction Indicator Ring -->
-                <div id="direction-indicator" class="direction-ring cw">
-                    <div class="dir-arrow"></div>
-                </div>
+            <!-- Direction Ring (center of board) -->
+            <div id="direction-indicator" class="direction-ring cw">
+                <div class="dir-arrow"></div>
+            </div>
 
-                <!-- Discard Card (big, center) -->
-                <div id="discard-card-container" class="discard-center"></div>
+            <!-- Discard Card (above draw pile) -->
+            <div id="discard-card-container" class="discard-center"></div>
 
-                <!-- Selected Color Dot -->
-                <div id="wild-color-indicator" class="color-dot-wrap" style="display:none;">
-                    <div id="wild-color-dot" class="color-dot"></div>
-                </div>
+            <!-- Selected Color Dot -->
+            <div id="wild-color-indicator" class="color-dot-wrap" style="display:none;">
+                <div id="wild-color-dot" class="color-dot"></div>
             </div>
 
             <!-- Draw Pile (left of center) -->
