@@ -47,26 +47,32 @@ ob_start();
             <!-- Opponents Container (circular layout) -->
             <div id="opponents-container" class="opponents-container"></div>
 
-            <!-- Direction Ring (center of board) -->
-            <div id="direction-indicator" class="direction-ring cw">
-                <div class="dir-arrow"></div>
-            </div>
-
-            <!-- Discard Card (above draw pile) -->
-            <div id="discard-card-container" class="discard-center"></div>
-
-            <!-- Selected Color Dot -->
-            <div id="wild-color-indicator" class="color-dot-wrap" style="display:none;">
-                <div id="wild-color-dot" class="color-dot"></div>
-            </div>
-
-            <!-- Draw Pile (left of center) -->
-            <div class="draw-pile-float" onclick="drawCard()">
-                <div class="draw-stack">
-                    <div class="draw-back"><span>UNO</span></div>
+            <!-- Center Board Area - Vertical Stack -->
+            <div class="board-center">
+                <!-- Direction Indicator Ring -->
+                <div id="direction-indicator" class="direction-ring cw">
+                    <div class="dir-arrow"></div>
                 </div>
-                <div class="draw-count" id="deck-count">0</div>
-                <span class="draw-label" id="draw-label">AMBIL</span>
+
+                <!-- Discard Card -->
+                <div id="discard-card-container" class="discard-center"></div>
+
+                <!-- Selected Color Dot -->
+                <div id="wild-color-indicator" class="color-dot-wrap" style="display:none;">
+                    <div id="wild-color-dot" class="color-dot"></div>
+                </div>
+
+                <!-- Draw Pile (below discard) -->
+                <div class="draw-pile-center" onclick="drawCard()">
+                    <div class="draw-stack">
+                        <div class="draw-back"><span>UNO</span></div>
+                    </div>
+                    <div class="draw-count" id="deck-count">0</div>
+                    <span class="draw-label" id="draw-label">AMBIL</span>
+                </div>
+
+                <!-- Turn Banner -->
+                <div id="turn-banner" class="turn-banner"></div>
             </div>
 
             <!-- UNO Button (right side floating) -->
@@ -85,11 +91,6 @@ ob_start();
             </button>
 
         </div><!-- .board-arena -->
-
-        <!-- Turn Banner -->
-        <div class="center-actions-area">
-            <div id="turn-banner" class="turn-banner"></div>
-        </div>
 
         <!-- Player Bottom Area: hand cards only (POV) -->
         <div class="player-bottom">

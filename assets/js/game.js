@@ -373,12 +373,6 @@ function renderGame(state) {
 
         // --- Opponents: circular layout around center ---
         const opponents = state.players.filter(p => p.id !== PLAYER_ID);
-        // Sort opponents by turn order (their position in players array)
-        opponents.sort((a, b) => {
-            const aIdx = state.players.findIndex(p => p.id === a.id);
-            const bIdx = state.players.findIndex(p => p.id === b.id);
-            return aIdx - bIdx;
-        });
         const oppContainer = document.getElementById('opponents-container');
         oppContainer.innerHTML = '';
 
@@ -483,7 +477,7 @@ function renderGame(state) {
         document.getElementById('deck-count').innerText = state.deck_count;
 
         // Draw pile label
-        const drawFloat = document.querySelector('.draw-pile-float');
+        const drawFloat = document.querySelector('.draw-pile-center');
         const drawLbl = document.getElementById('draw-label');
         if (state.accumulated_draw_penalty > 0) {
             drawLbl.innerHTML = `AMBIL <span style="color:#ef4444;font-weight:800;">+${state.accumulated_draw_penalty}</span>`;
