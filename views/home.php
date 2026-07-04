@@ -153,6 +153,9 @@ function toggleHomeMusicSetting(on) {
 }
 function setHomeMusicVolume(val) {
     _homeSettings.musicVolume = parseInt(val);
+    if (typeof MusicController !== 'undefined' && MusicController.setVolume) {
+        MusicController.setVolume(val);
+    }
 }
 function setHomeSfxVolume(val) {
     _homeSettings.sfxVolume = parseInt(val);

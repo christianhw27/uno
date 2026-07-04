@@ -3,8 +3,6 @@ $title = "Room " . htmlspecialchars($room->room_id) . " - UNO Mobile";
 ob_start();
 ?>
 <div class="game-screen">
-    <!-- Hide global theme toggle on gameplay screen (reference design is dark cyber) -->
-    <style>#btn-theme { display: none !important; }</style>
 
     <!-- Cyber background effects -->
     <div class="cyber-bg-grid"></div>
@@ -249,7 +247,7 @@ ob_start();
     const PLAYER_ID = '<?php echo $playerId; ?>';
     const CREATOR_ID = '<?php echo $room->creator_id; ?>';
 </script>
-<script src="assets/js/game.js?v=6"></script>
+<script src="assets/js/game.js?v=7"></script>
 
 <?php
 $content = ob_get_clean();

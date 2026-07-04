@@ -1,112 +1,107 @@
-/* ========== MUSIC CONTROLLER ========== */
+/* ========== MUSIC CONTROLLER - YouTube Background Audio ========== */
 const MusicController = {
-    ctx: null, playing: false, _timer: null,
+    _player: null,
+    _ready: false,
+    _playing: false,
+    _intended: false,
+    _videoId: '_Q8Ih2SW-TE',
+    _apiLoaded: false,
 
+    get playing() { return this._playing; },
+
+    /* Load YouTube IFrame API (called once) */
     init() {
-        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        if (this.ctx.state === 'suspended') this.ctx.resume();
-    },
-    _vol() { return ((typeof Settings !== 'undefined' && Settings) ? Settings.musicVolume : 50) / 100; },
-    _n(f, dur, type, vol, t) {
-        try {
-            const o = this.ctx.createOscillator(), g = this.ctx.createGain();
-            o.type = type; o.frequency.setValueAtTime(f, t);
-            g.gain.setValueAtTime(vol * this._vol(), t);
-            g.gain.exponentialRampToValueAtTime(0.001, t + dur * 0.85);
-            o.connect(g); g.connect(this.ctx.destination);
-            o.start(t); o.stop(t + dur * 1.1);
-        } catch(e) {}
-    },
-    _noise(dur, vol, t) {
-        try {
-            const sr = this.ctx.sampleRate, buf = this.ctx.createBuffer(1, sr * dur, sr);
-            const d = buf.getChannelData(0);
-            for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-            const src = this.ctx.createBufferSource(); src.buffer = buf;
-            const g = this.ctx.createGain();
-            src.connect(g); g.connect(this.ctx.destination);
-            g.gain.setValueAtTime(vol * this._vol(), t); g.gain.exponentialRampToValueAtTime(0.001, t + dur * 0.9);
-            src.start(t);
-        } catch(e) {}
+        if (this._apiLoaded) return;
+        this._apiLoaded = true;
+
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(tag, first);
+
+        window.onYouTubeIframeAPIReady = () => this._createPlayer();
     },
 
-    _chord(bar) {
-        const chords = [
-            [261.63, 329.63, 392.00, 523.25],
-            [392.00, 493.88, 587.33, 783.99],
-            [440.00, 523.25, 659.25, 880.00],
-            [349.23, 440.00, 523.25, 698.46],
-            [293.66, 349.23, 440.00, 587.33],
-        ];
-        const map = [0,1,2,3, 2,3,0,1, 3,0,4,1, 0,3,1,0];
-        return chords[map[bar % 16]];
-    },
+    /* Create hidden YouTube player */
+    _createPlayer() {
+        // Create a minimal hidden container
+        const container = document.createElement('div');
+        container.id = 'yt-bg-player';
+        container.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0.01;pointer-events:none;overflow:hidden;z-index:-1;';
+        document.body.appendChild(container);
 
-    _melody(t, bar, chord) {
-        const b = 0.5;
-        const s = Math.floor(bar / 4) % 4;
-        const bi = bar % 4;
-        const patterns = [
-            [[[0,0,1],[1,1,0.5],[2,1.5,0.5],[3,2,0.9],[2,2.9,0.4],[1,3.3,0.5]],
-             [[1,0,0.8],[2,0.8,0.4],[3,1.2,0.6],[2,1.8,0.4],[0,2.2,0.9],[1,3.1,0.4],[2,3.5,0.3]],
-             [[3,0,0.6],[2,0.6,0.4],[1,1,0.5],[0,1.5,0.9],[1,2.4,0.4],[2,2.8,0.4],[3,3.2,0.5]],
-             [[0,0,0.9],[2,0.9,0.4],[1,1.3,0.5],[3,1.8,0.8],[2,2.6,0.3],[1,2.9,0.4],[0,3.3,0.5]]],
-            [[[3,0,0.5],[2,0.5,0.5],[1,1,0.5],[0,1.5,1],[1,2.5,0.4],[2,2.9,0.4],[3,3.3,0.4]],
-             [[0,0,0.6],[1,0.6,0.4],[2,1,0.5],[3,1.5,0.7],[2,2.2,0.4],[1,2.6,0.4],[0,3,0.5],[2,3.5,0.3]],
-             [[3,0,0.4],[2,0.4,0.4],[1,0.8,0.5],[0,1.3,0.9],[2,2.2,0.4],[1,2.6,0.4],[3,3,0.5]],
-             [[1,0,0.4],[0,0.4,0.4],[2,0.8,0.5],[3,1.3,0.8],[1,2.1,0.4],[0,2.5,0.4],[2,2.9,0.5],[1,3.4,0.3]]],
-            [[[0,0,0.8],[2,0.8,0.4],[1,1.2,0.5],[3,1.7,0.6],[2,2.3,0.4],[1,2.7,0.4],[0,3.1,0.5]],
-             [[3,0,0.5],[2,0.5,0.4],[1,0.9,0.5],[3,1.4,0.5],[2,1.9,0.3],[0,2.2,0.6],[1,2.8,0.4],[2,3.2,0.4]],
-             [[1,0,0.5],[2,0.5,0.4],[0,0.9,0.5],[2,1.4,0.4],[3,1.8,0.7],[2,2.5,0.3],[1,2.8,0.4],[0,3.2,0.5]],
-             [[2,0,0.5],[1,0.5,0.4],[0,0.9,0.5],[2,1.4,0.4],[3,1.8,0.6],[2,2.4,0.3],[1,2.7,0.4],[2,3.1,0.4]]],
-            [[[0,0,0.8],[1,0.8,0.4],[2,1.2,0.4],[3,1.6,0.7],[2,2.3,0.4],[1,2.7,0.4],[3,3.1,0.5]],
-             [[3,0,0.4],[2,0.4,0.4],[1,0.8,0.4],[0,1.2,0.6],[1,1.8,0.4],[2,2.2,0.4],[3,2.6,0.6],[2,3.2,0.3]],
-             [[1,0,0.5],[2,0.5,0.4],[0,0.9,0.5],[3,1.4,0.6],[2,2,0.3],[0,2.3,0.5],[1,2.8,0.3],[3,3.1,0.5]],
-             [[0,0,1],[2,1,0.5],[3,1.5,0.6],[2,2.1,0.3],[0,2.4,1]], ]];
-        (patterns[s]?.[bi] ?? patterns[0][0]).forEach(([ti, sb, db]) => {
-            this._n(chord[ti], db * b, 'triangle', 0.03, t + sb * b);
+        this._player = new YT.Player('yt-bg-player', {
+            width: 1,
+            height: 1,
+            videoId: this._videoId,
+            playerVars: {
+                autoplay: 0,
+                controls: 0,
+                disablekb: 1,
+                enablejsapi: 1,
+                modestbranding: 1,
+                rel: 0,
+                iv_load_policy: 3,
+                fs: 0,
+                loop: 1,
+                playlist: this._videoId,
+            },
+            events: {
+                onReady: () => {
+                    this._ready = true;
+                    if (this._intended) this._resume();
+                },
+                onStateChange: (e) => {
+                    // Restart if video ends while intended to play
+                    if (e.data === YT.PlayerState.ENDED && this._intended) {
+                        this._player.playVideo();
+                    }
+                }
+            }
         });
     },
 
-    _playBar(t, bar) {
-        const b = 0.5;
-        const chord = this._chord(bar);
-        const root = chord[0];
-        for (let i = 0; i < 3; i++) this._n(chord[i] * 0.5, b * 3.9, 'sine', 0.02, t);
-        for (let i = 0; i < 3; i++) this._n(chord[i], b * 3.9, 'sine', 0.01, t);
-        this._n(root * 0.5, b * 1.8, 'triangle', 0.07, t);
-        this._n(root * 0.5, b * 1.6, 'triangle', 0.05, t + b * 2);
-        this._noise(0.04, 0.03, t);
-        this._noise(0.03, 0.02, t + b * 2);
-        for (let i = 0; i < 4; i++) {
-            this._noise(0.01, 0.008, t + i * b + b * 0.5);
-        }
-        if (bar % 2 === 1) this._noise(0.02, 0.025, t + b * 2 + b * 0.5);
-        for (let i = 0; i < 8; i++) {
-            this._n(chord[i % 4], b * 0.35, 'sine', 0.007, t + i * b * 0.5 + b * 0.05);
-        }
-        this._melody(t, bar, chord);
+    _resume() {
+        if (!this._ready || !this._player) return;
+        this._player.setVolume(this._vol());
+        this._player.playVideo();
+        this._playing = true;
     },
 
-    _schedule(startBar) {
-        if (!this.playing) return;
-        const now = this.ctx.currentTime, barLen = 2;
-        for (let i = 0; i < 8; i++) this._playBar(now + i * barLen, startBar + i);
-        this._timer = setTimeout(() => this._schedule(startBar + 8), barLen * 5 * 1000);
+    _pause() {
+        if (!this._ready || !this._player) return;
+        this._player.pauseVideo();
+        this._playing = false;
+    },
+
+    /* Read current volume from whichever settings are active */
+    _vol() {
+        if (typeof Settings !== 'undefined' && Settings) return Settings.musicVolume;
+        if (typeof _homeSettings !== 'undefined' && _homeSettings) return _homeSettings.musicVolume;
+        return 50;
+    },
+
+    /* Apply volume change live to YouTube player */
+    setVolume(val) {
+        if (this._ready && this._player) {
+            this._player.setVolume(parseInt(val));
+        }
     },
 
     start() {
-        if (this.playing) return;
-        this.init(); if (!this.ctx) return;
-        this.playing = true;
-        this._schedule(0);
+        if (this._playing) return;
+        this._intended = true;
+        if (!this._apiLoaded) this.init();
+        if (this._ready) this._resume();
     },
+
     stop() {
-        this.playing = false;
-        if (this._timer) { clearTimeout(this._timer); this._timer = null; }
+        this._intended = false;
+        this._pause();
     },
+
     toggle() {
-        if (this.playing) { this.stop(); return false; }
+        if (this._playing) { this.stop(); return false; }
         this.start(); return true;
     }
 };

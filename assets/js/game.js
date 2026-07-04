@@ -123,6 +123,9 @@ function toggleMusicSetting(on) {
 }
 function setMusicVolume(val) {
     Settings.musicVolume = parseInt(val);
+    if (typeof MusicController !== 'undefined' && MusicController.setVolume) {
+        MusicController.setVolume(val);
+    }
 }
 function setSfxVolume(val) {
     Settings.sfxVolume = parseInt(val);
