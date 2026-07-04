@@ -371,24 +371,28 @@ function renderGame(state) {
         document.getElementById('direction-indicator').className =
             `direction-ring ${state.direction === 1 ? 'cw' : 'ccw'}`;
 
-        // --- Opponents: position in slots ---
+        // --- Opponents: circular layout around center ---
         const opponents = state.players.filter(p => p.id !== PLAYER_ID);
-        const slots = ['opponent-top', 'opponent-left', 'opponent-right'];
-        // Clear all
-        slots.forEach(s => document.getElementById(s).innerHTML = '');
+        const oppContainer = document.getElementById('opponents-container');
+        oppContainer.innerHTML = '';
 
-        // Assign positions based on opponent count
-        // 1 opp → top
-        // 2 opp → left, right
-        // 3 opp → top, left, right
-        // 4+ → top, left, right (extras appended to top)
-        let positions = [];
-        if (opponents.length === 1) positions = ['opponent-top'];
-        else if (opponents.length === 2) positions = ['opponent-left', 'opponent-right'];
-        else if (opponents.length >= 3) positions = ['opponent-top', 'opponent-left', 'opponent-right'];
+        const cx = 50, cy = 35; // center point (%)
+        const rx = 34, ry = 26; // radius (%)
+        const N = opponents.length;
 
         opponents.forEach((p, i) => {
-            const slotId = positions[i] || 'opponent-top';
+            let angle;
+            if (N === 1) {
+                angle = -Math.PI / 2; // top
+            } else if (N === 2) {
+                angle = -Math.PI / 2 + (i === 0 ? -0.6 : 0.6); // top-left, top-right
+            } else {
+                angle = (i / N) * 2 * Math.PI - Math.PI / 2; // full circle from top
+            }
+
+            const left = cx + rx * Math.cos(angle);
+            const topPct = cy + ry * Math.sin(angle);
+
             const isActive = active.id === p.id;
             const showChallenge = p.card_count === 1 && !p.called_uno;
             const init = p.is_bot ? '🤖' : (p.name ? p.name.charAt(0).toUpperCase() : '?');
@@ -399,8 +403,8 @@ function renderGame(state) {
                 miniCards += `<div class="opp-minicard"></div>`;
             }
 
-            const html = `
-                <div class="opp-widget ${isActive ? 'active' : ''}">
+            oppContainer.innerHTML += `
+                <div class="opp-widget ${isActive ? 'active' : ''}" style="position:absolute;left:${left}%;top:${topPct}%;transform:translate(-50%,-50%);">
                     <div class="opp-cards-fan">${miniCards}</div>
                     <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
                         <div class="opp-avatar">
@@ -412,9 +416,6 @@ function renderGame(state) {
                         ${showChallenge ? `<button class="opp-challenge-btn" onclick="challenge('${p.id}')">TANTANG!</button>` : ''}
                     </div>
                 </div>`;
-
-            const slot = document.getElementById(slotId);
-            slot.innerHTML += html;
         });
 
         // --- Discard Card Stack (combo fan or single card) ---

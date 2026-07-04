@@ -44,14 +44,8 @@ ob_start();
         <!-- The Board is a full relative container -->
         <div class="board-arena">
 
-            <!-- Opponent Slot: TOP -->
-            <div id="opponent-top" class="opp-slot opp-top"></div>
-
-            <!-- Opponent Slot: LEFT -->
-            <div id="opponent-left" class="opp-slot opp-left"></div>
-
-            <!-- Opponent Slot: RIGHT -->
-            <div id="opponent-right" class="opp-slot opp-right"></div>
+            <!-- Opponents Container (circular layout) -->
+            <div id="opponents-container" class="opponents-container"></div>
 
             <!-- Center Board Area -->
             <div class="board-center">
