@@ -3,7 +3,18 @@ $title = "UNO Mobile - Main Menu";
 ob_start();
 ?>
 <div class="lobby-screen">
-    <div class="logo-area">
+    <!-- Background Card Decorations -->
+    <div class="bg-decorations">
+        <div class="bg-suit spade">♠</div>
+        <div class="bg-suit heart">♥</div>
+        <div class="bg-suit diamond">♦</div>
+        <div class="bg-suit club">♣</div>
+        <div class="bg-card-shape card-big"></div>
+        <div class="bg-card-shape card-small"></div>
+    </div>
+
+    <div class="lobby-content">
+        <div class="logo-area">
         <div class="uno-logo-glow"></div>
         <img src="uno_card/UNO_Logo.webp" alt="UNO" class="logo-img">
         <p class="tagline">Bermain UNO dengan teman dan bot cerdas</p>
@@ -62,7 +73,8 @@ ob_start();
         </button>
         <p>PHP MVC &bull; Vanilla CSS &bull; Local JSON Database</p>
     </div>
-</div>
+</div><!-- /.lobby-content -->
+</div><!-- /.lobby-screen -->
 
 <script>
 function switchTab(tab) {

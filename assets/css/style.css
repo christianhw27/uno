@@ -1021,3 +1021,160 @@ html, body { background: var(--bg-deep); }
     color: #7c3aed;
 }
 
+/* ================================================================
+   BACKGROUND CARD DECORATIONS (Home Page)
+   ================================================================ */
+.lobby-screen {
+    position: relative;
+}
+.bg-decorations {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+.lobby-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+/* Card suit symbols — line-art style */
+.bg-suit {
+    position: absolute;
+    font-size: 5rem;
+    font-weight: 400;
+    color: transparent;
+    -webkit-text-stroke: 1.5px;
+    text-stroke: 1.5px;
+    opacity: 0.25;
+    user-select: none;
+    transition: opacity 0.3s;
+}
+
+/* Spade (♠) — top left */
+.bg-suit.spade {
+    top: 12%;
+    left: 8%;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
+    text-stroke-color: rgba(255, 255, 255, 0.5);
+    font-size: 4rem;
+    transform: rotate(-10deg);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+}
+
+/* Heart (♥) — above form, center-right */
+.bg-suit.heart {
+    top: 32%;
+    right: 12%;
+    -webkit-text-stroke-color: rgba(239, 68, 68, 0.6);
+    text-stroke-color: rgba(239, 68, 68, 0.6);
+    font-size: 3.5rem;
+    transform: rotate(15deg);
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.2));
+}
+
+/* Diamond (♦) — bottom left (near footer) */
+.bg-suit.diamond {
+    bottom: 22%;
+    left: 6%;
+    -webkit-text-stroke-color: rgba(168, 85, 247, 0.6);
+    text-stroke-color: rgba(168, 85, 247, 0.6);
+    font-size: 5rem;
+    transform: rotate(-5deg);
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.2));
+}
+
+/* Club (♣) — bottom right */
+.bg-suit.club {
+    bottom: 28%;
+    right: 8%;
+    -webkit-text-stroke-color: rgba(16, 185, 129, 0.5);
+    text-stroke-color: rgba(16, 185, 129, 0.5);
+    font-size: 4.2rem;
+    transform: rotate(8deg);
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.2));
+}
+
+/* Card shape — large (top right) */
+.bg-card-shape {
+    position: absolute;
+    border-radius: 8px;
+    opacity: 0.2;
+}
+.bg-card-shape.card-big {
+    top: 5%;
+    right: -15px;
+    width: 90px;
+    height: 130px;
+    border: 2px solid rgba(250, 204, 21, 0.5);
+    transform: rotate(18deg);
+    box-shadow: 0 0 18px rgba(250, 204, 21, 0.15), inset 0 0 18px rgba(250, 204, 21, 0.05);
+    background: rgba(250, 204, 21, 0.03);
+}
+.bg-card-shape.card-big::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 75px;
+    border: 1.5px solid rgba(250, 204, 21, 0.35);
+    border-radius: 5px;
+}
+
+/* Card shape — small (bottom left) */
+.bg-card-shape.card-small {
+    bottom: 10%;
+    left: -10px;
+    width: 65px;
+    height: 95px;
+    border: 2px solid rgba(99, 102, 241, 0.5);
+    transform: rotate(-12deg);
+    box-shadow: 0 0 14px rgba(99, 102, 241, 0.15), inset 0 0 14px rgba(99, 102, 241, 0.05);
+    background: rgba(99, 102, 241, 0.03);
+}
+.bg-card-shape.card-small::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 38px;
+    height: 55px;
+    border: 1.5px solid rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .bg-suit {
+    opacity: 0.15;
+}
+[data-theme="light"] .bg-suit.spade {
+    -webkit-text-stroke-color: rgba(0, 0, 0, 0.4);
+    text-stroke-color: rgba(0, 0, 0, 0.4);
+}
+[data-theme="light"] .bg-suit.heart {
+    -webkit-text-stroke-color: rgba(239, 68, 68, 0.4);
+    text-stroke-color: rgba(239, 68, 68, 0.4);
+}
+[data-theme="light"] .bg-suit.diamond {
+    -webkit-text-stroke-color: rgba(168, 85, 247, 0.4);
+    text-stroke-color: rgba(168, 85, 247, 0.4);
+}
+[data-theme="light"] .bg-suit.club {
+    -webkit-text-stroke-color: rgba(16, 185, 129, 0.35);
+    text-stroke-color: rgba(16, 185, 129, 0.35);
+}
+[data-theme="light"] .bg-card-shape.card-big {
+    border-color: rgba(250, 204, 21, 0.4);
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.1);
+}
+[data-theme="light"] .bg-card-shape.card-small {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);
+}
+
