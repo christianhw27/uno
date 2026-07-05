@@ -380,6 +380,9 @@ function renderGame(state) {
         document.getElementById('lobby-panel').style.display = 'none';
         document.getElementById('board-panel').style.display = 'flex';
         document.getElementById('finished-panel').style.display = 'none';
+        document.getElementById('my-cards-container').innerHTML = ''; // Clear stale cards
+        document.getElementById('opponents-ring').innerHTML = '';
+        document.getElementById('discard-card-container').innerHTML = '';
         return;
     }
 
@@ -392,6 +395,10 @@ function renderGame(state) {
         MusicController.start();
         isCountdownRunning = true;
         lastState = state;
+        // Clear stale DOM from previous game
+        document.getElementById('my-cards-container').innerHTML = '';
+        document.getElementById('opponents-ring').innerHTML = '';
+        document.getElementById('discard-card-container').innerHTML = '';
         runSpinAnimation(() => {
             isCountdownRunning = false;
             _renderHash = null; // Force full re-render after spin
