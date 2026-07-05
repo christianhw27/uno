@@ -42,8 +42,11 @@
                     MusicController.start();
                 }
             } catch(e) {}
-            document.removeEventListener('click', resumeMusic);
-            document.removeEventListener('touchstart', resumeMusic);
+            // Only remove listeners once player is ready (playback was attempted)
+            if (MusicController._ready) {
+                document.removeEventListener('click', resumeMusic);
+                document.removeEventListener('touchstart', resumeMusic);
+            }
         };
         document.addEventListener('click', resumeMusic);
         document.addEventListener('touchstart', resumeMusic);

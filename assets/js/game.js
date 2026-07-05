@@ -104,6 +104,10 @@ const Settings = {
 
 function openSettings() {
     document.getElementById('settings-modal').style.display = 'flex';
+    // If music should be playing but isn't (autoplay blocked), try from user gesture
+    if (typeof MusicController !== 'undefined' && MusicController._ready && !MusicController.playing && MusicController._intended) {
+        MusicController.start();
+    }
     // Sync UI with current state
     document.getElementById('setting-music-toggle').checked = Settings.musicEnabled;
     document.getElementById('setting-music-volume').value = Settings.musicVolume;

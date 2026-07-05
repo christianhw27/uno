@@ -57,6 +57,11 @@ const MusicController = {
                     if (this._intended) this._resume();
                 },
                 onStateChange: (e) => {
+                    if (e.data === YT.PlayerState.PLAYING) {
+                        this._playing = true;
+                    } else if (e.data === YT.PlayerState.PAUSED) {
+                        this._playing = false;
+                    }
                     // Restart if video ends while intended to play
                     if (e.data === YT.PlayerState.ENDED && this._intended) {
                         this._player.playVideo();
@@ -70,7 +75,7 @@ const MusicController = {
         if (!this._ready || !this._player) return;
         this._player.setVolume(this._vol());
         this._player.playVideo();
-        this._playing = true;
+        // _playing will be set by onStateChange(PLAYING)
     },
 
     _pause() {

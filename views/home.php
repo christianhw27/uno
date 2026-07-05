@@ -143,6 +143,10 @@ const _homeSettings = {
 };
 
 function openHomeSettings() {
+    // If music should be playing but isn't (autoplay blocked), try from user gesture
+    if (typeof MusicController !== 'undefined' && MusicController._ready && !MusicController.playing && MusicController._intended) {
+        MusicController.start();
+    }
     document.getElementById('home-music-toggle').checked = _homeSettings.musicEnabled;
     document.getElementById('home-music-volume').value = _homeSettings.musicVolume;
     document.getElementById('home-sfx-volume').value = _homeSettings.sfxVolume;
