@@ -36,21 +36,34 @@
             } catch(e) {}
         }, 500);
 
-        // Handle autoplay policy — start on first user interaction if needed
+        // Handle autoplay policy — retry on EVERY user interaction (tap/click)
+        // Listeners stay forever so switching back to Chrome tab also recovers.
         const resumeMusic = () => {
             try {
-                if (!MusicController.playing) {
+                // Only auto-start if user intended music (don't restart after toggle-off)
+                if (MusicController._intended && !MusicController.playing) {
                     MusicController.start();
                 }
             } catch(e) {}
-            // Only remove listeners once player is ready (playback was attempted)
-            if (MusicController._ready) {
-                document.removeEventListener('click', resumeMusic);
-                document.removeEventListener('touchstart', resumeMusic);
-            }
         };
         document.addEventListener('click', resumeMusic);
         document.addEventListener('touchstart', resumeMusic);
+
+        // When returning to the page (e.g. switching Chrome tabs), retry as well
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && MusicController._intended && !MusicController.playing) {
+                MusicController.start();
+            }
+        });
+        window.addEventListener('focus', () => {
+            if (MusicController._intended && !MusicController.playing && MusicController._ready) {
+                MusicController.start();
+            }
+        });
+        // Restore from bfcache (back-navigation)
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted && MusicController._intended) MusicController.start();
+        });
     });
     </script>
 </body>

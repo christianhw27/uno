@@ -88,9 +88,10 @@ const MusicController = {
                         this._player.seekTo(this._seekTo, true);
                         this._seekTo = null;
                     }
-                    // DON'T call _resume() here — browser blocks playVideo()
-                    // outside a user gesture. The resumeMusic click handler
-                    // or setting modal open will trigger actual playback.
+                    // Try to play — might be blocked (autoplay policy), but if it works
+                    // we save the user a click. If blocked, _playing stays false and
+                    // resumeMusic (click handler) will retry from a user gesture.
+                    if (this._intended) this._resume();
                 },
                 onStateChange: (e) => {
                     if (e.data === YT.PlayerState.PLAYING) {
@@ -109,8 +110,17 @@ const MusicController = {
 
     _resume() {
         if (!this._ready || !this._player) return;
-        this._player.setVolume(this._vol());
-        this._player.playVideo();
+        try {
+            this._player.setVolume(this._vol());
+            this._player.playVideo();
+        } catch(e) {
+            // Player may be stale after tab switch — reset readiness
+            this._ready = false;
+            this._apiLoaded = false;
+            this._player = null;
+            this._playing = false;
+            // Will be re-created on next start() call
+        }
         // _playing will be set by onStateChange(PLAYING)
     },
 
