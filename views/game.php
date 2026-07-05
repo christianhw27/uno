@@ -18,19 +18,8 @@ ob_start();
         <div class="bg-card bg-card-6"><span class="bg-card-inner">Ø</span></div>
         <div class="bg-card bg-card-7"><span class="bg-card-inner">+4</span></div>
         <div class="bg-card bg-card-8"><span class="bg-card-inner">3</span></div>
-        <div class="bg-card bg-card-9"><span class="bg-card-inner">8</span></div>
-        <div class="bg-card bg-card-10"><span class="bg-card-inner">+2</span></div>
-        <div class="bg-card bg-card-11"><span class="bg-card-inner">5</span></div>
-        <div class="bg-card bg-card-12"><span class="bg-card-inner">S</span></div>
-        <div class="bg-card bg-card-13"><span class="bg-card-inner">9</span></div>
-        <div class="bg-card bg-card-14"><span class="bg-card-inner">R</span></div>
-        <div class="bg-card bg-card-15"><span class="bg-card-inner">6</span></div>
     </div>
     <div class="bg-float-dots">
-        <div class="fg-dot"></div>
-        <div class="fg-dot"></div>
-        <div class="fg-dot"></div>
-        <div class="fg-dot"></div>
         <div class="fg-dot"></div>
         <div class="fg-dot"></div>
         <div class="fg-dot"></div>
@@ -262,7 +251,7 @@ ob_start();
     const PLAYER_ID = '<?php echo $playerId; ?>';
     const CREATOR_ID = '<?php echo $room->creator_id; ?>';
 </script>
-<script src="assets/js/game.js?v=7"></script>
+<script src="assets/js/game.js?v=8"></script>
 
 <?php
 $musicVideoId = '-scpRk2xZcI';

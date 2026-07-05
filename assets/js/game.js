@@ -71,6 +71,7 @@ const AudioController = {
 
 /* ========== STATE ========== */
 let lastState = null;
+let _renderHash = null;
 let isPolling = false;
 let pendingWildCardId = null;
 let logsExpanded = false;
@@ -381,6 +382,11 @@ function renderGame(state) {
         document.getElementById('finished-panel').style.display = 'none';
         return;
     }
+
+    // Skip full DOM rebuild if state unchanged (huge mobile perf win)
+    const _h = JSON.stringify(state);
+    if (_h === _renderHash) { lastState = state; return; }
+    _renderHash = _h;
 
     if (lastState && lastState.status === 'lobby' && state.status === 'playing') {
         MusicController.start();
