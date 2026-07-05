@@ -54,7 +54,9 @@ const MusicController = {
             events: {
                 onReady: () => {
                     this._ready = true;
-                    if (this._intended) this._resume();
+                    // DON'T call _resume() here — browser blocks playVideo()
+                    // outside a user gesture. The resumeMusic click handler
+                    // or setting modal open will trigger actual playback.
                 },
                 onStateChange: (e) => {
                     if (e.data === YT.PlayerState.PLAYING) {
