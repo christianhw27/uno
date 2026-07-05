@@ -394,6 +394,7 @@ function renderGame(state) {
         lastState = state;
         runSpinAnimation(() => {
             isCountdownRunning = false;
+            _renderHash = null; // Force full re-render after spin
             renderGame(state);
         });
         return;
