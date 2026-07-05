@@ -16,6 +16,15 @@ ob_start();
         <div class="bg-suit club">♣</div>
         <div class="bg-card-shape card-big"></div>
         <div class="bg-card-shape card-small"></div>
+        <div class="bg-card-shape card-red"></div>
+        <div class="bg-card-shape card-green"></div>
+        <div class="bg-card-shape card-purple"></div>
+        <div class="bg-dot dot-1"></div>
+        <div class="bg-dot dot-2"></div>
+        <div class="bg-dot dot-3"></div>
+        <div class="bg-dot dot-4"></div>
+        <div class="bg-dot dot-5"></div>
+        <div class="bg-dot dot-6"></div>
     </div>
 
     <div class="lobby-content">
@@ -134,10 +143,6 @@ const _homeSettings = {
 };
 
 function openHomeSettings() {
-    // Sync from MusicController actual state
-    if (typeof MusicController !== 'undefined') {
-        _homeSettings.musicEnabled = MusicController.playing;
-    }
     document.getElementById('home-music-toggle').checked = _homeSettings.musicEnabled;
     document.getElementById('home-music-volume').value = _homeSettings.musicVolume;
     document.getElementById('home-sfx-volume').value = _homeSettings.sfxVolume;
