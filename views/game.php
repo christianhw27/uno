@@ -265,6 +265,7 @@ ob_start();
 <script src="assets/js/game.js?v=7"></script>
 
 <?php
+$musicVideoId = '-scpRk2xZcI';
 $content = ob_get_clean();
 require __DIR__ . '/layout.php';
 ?>

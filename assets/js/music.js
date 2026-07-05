@@ -4,15 +4,44 @@ const MusicController = {
     _ready: false,
     _playing: false,
     _intended: false,
-    _videoId: '_Q8Ih2SW-TE',
     _apiLoaded: false,
+    _seekTo: null,
+
+    /* Video ID — read from global UNO_MUSIC_ID or fallback to default */
+    get _videoId() {
+        return typeof UNO_MUSIC_ID !== 'undefined' ? UNO_MUSIC_ID : '_Q8Ih2SW-TE';
+    },
 
     get playing() { return this._playing; },
+
+    /* Save playback state to sessionStorage before page unload */
+    _saveState() {
+        if (!this._ready || !this._player) return;
+        try {
+            sessionStorage.setItem('uno_video', this._videoId);
+            sessionStorage.setItem('uno_time', this._player.getCurrentTime());
+            sessionStorage.setItem('uno_playing', this._playing ? '1' : '0');
+        } catch(e) {}
+    },
 
     /* Load YouTube IFrame API (called once) */
     init() {
         if (this._apiLoaded) return;
         this._apiLoaded = true;
+
+        // Restore saved playback position if same video
+        const prevVideo = sessionStorage.getItem('uno_video');
+        const prevTime = parseFloat(sessionStorage.getItem('uno_time') || '0');
+        if (prevVideo === this._videoId && prevTime > 0) {
+            this._seekTo = prevTime;
+        }
+        // Clean up stored state
+        sessionStorage.removeItem('uno_video');
+        sessionStorage.removeItem('uno_time');
+        sessionStorage.removeItem('uno_playing');
+
+        // Save state on page unload for next page
+        window.addEventListener('beforeunload', () => this._saveState());
 
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
@@ -54,6 +83,11 @@ const MusicController = {
             events: {
                 onReady: () => {
                     this._ready = true;
+                    // Seek to saved position if restoring same video
+                    if (this._seekTo != null && !isNaN(this._seekTo) && this._seekTo > 0) {
+                        this._player.seekTo(this._seekTo, true);
+                        this._seekTo = null;
+                    }
                     // DON'T call _resume() here — browser blocks playVideo()
                     // outside a user gesture. The resumeMusic click handler
                     // or setting modal open will trigger actual playback.

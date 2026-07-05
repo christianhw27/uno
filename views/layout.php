@@ -22,7 +22,8 @@
         <?php echo $content; ?>
     </div>
 
-    <!-- Music Controller -->
+   <!-- Music Controller -->
+    <script>const UNO_MUSIC_ID = '<?php echo isset($musicVideoId) ? $musicVideoId : '_Q8Ih2SW-TE'; ?>';</script>
     <script src="assets/js/music.js"></script>
 
     <script>
