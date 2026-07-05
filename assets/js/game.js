@@ -383,8 +383,8 @@ function renderGame(state) {
         return;
     }
 
-    // Skip full DOM rebuild if state unchanged (huge mobile perf win)
-    const _h = JSON.stringify(state);
+    // Skip full DOM rebuild if state & sort unchanged (huge mobile perf win)
+    const _h = JSON.stringify(state) + '|' + (_handSort || 'none');
     if (_h === _renderHash) { lastState = state; return; }
     _renderHash = _h;
 
